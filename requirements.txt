@@ -1,0 +1,4 @@
+boto3==1.18.59
+Django==2.2
+pytz==2021.1
+sqlparse==0.4.2

@@ -1,0 +1,40 @@
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <title>Desk Buddy</title>
+
+      <script type = "text/javascript">
+          function displayNextImage() {
+              x = (x === images.length - 1) ? 0 : x + 1;
+              document.getElementById("img").src = images[x];
+              document.getElementById("img").alt = names[x];
+          }
+
+          function displayPreviousImage() {
+              x = (x <= 0) ? images.length - 1 : x - 1;
+              document.getElementById("img").src = images[x];
+              document.getElementById("img").alt = names[x];
+          }
+
+          function startTimer() {
+              setInterval(displayNextImage, 3000);
+          }
+
+          var x = 0;
+          {% autoescape off %}
+          var images = {{ path }};
+          var names = {{ photo_descr }}
+          {% endautoescape %}
+      </script>
+</head>
+<body onload="startTimer();">
+<div><img src="{{ path.0 }}" alt="{{ photo_descr.0 }}" height="90%" id="img"/></div>
+<div>
+    <input type = "button" onclick = "displayPreviousImage();" name = "Prev" value = "Prev" />
+    <input type = "button" onclick = "displayNextImage();" name = "Next" value = "Next" />
+</div>
+<div><a href="{% url 'index' %}">Home</a></div>
+</body>
+</html>
+
