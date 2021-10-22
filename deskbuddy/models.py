@@ -19,3 +19,17 @@ class Photo(models.Model):
     def __str__(self):
         return self.title
 
+
+class UserSettings(models.Model):
+    uuid = models.UUIDField(
+        primary_key=True, default=uuid.uuid4, editable=False,
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
+    name = models.CharField(max_length=100, null=True)
+    photo_frequency = models.IntegerField(null=True)
+
+    def __str__(self):
+        string = f"{{'name': '{self.name}', 'photo_frequency': '{self.photo_frequency}'}}"
+        return str(string)
+

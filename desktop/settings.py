@@ -121,3 +121,6 @@ STATIC_URL = '/static/'
 STATIC_ROOT = 'static'
 
 PHOTO_ROOT = 'photo'
+
+LOGIN_URL = '/deskbuddy/accounts/login/'
+LOGIN_REDIRECT_URL = '/deskbuddy/'

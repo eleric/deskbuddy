@@ -1,11 +1,12 @@
 from django.contrib import admin
 from django.core.files.base import ContentFile
 
-from .models import Photo
+from .models import Photo, UserSettings
 from django.conf import settings
 from django.core.files import File
 import os
 from deskbuddy.persistence import get_storage_obj
+
 
 # Register your models here.
 @admin.register(Photo)
@@ -36,3 +37,19 @@ class PhotoAdmin(admin.ModelAdmin):
             print(f'Warning File not found.  {e}')
 
         super().delete_model(request, obj)
+
+
+@admin.register(UserSettings)
+class UserSettingsAdmin(admin.ModelAdmin):
+    def save_model(self, request, obj, form, change):
+        try:
+            user_settings = UserSettings.objects.get(name=obj.name)
+        except UserSettings.DoesNotExist:
+            user_settings = UserSettings()
+            user_settings.name = obj.name
+            user_settings.photo_frequency = obj.photo_frequency
+        else:
+            user_settings.photo_frequency = obj.photo_frequency
+
+        user_settings.save()
+
